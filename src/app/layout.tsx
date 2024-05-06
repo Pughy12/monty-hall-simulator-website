@@ -1,6 +1,7 @@
 import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";
+import Link from "next/link";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,7 +21,26 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`font-sans ${inter.variable}`}>{children}</body>
+      <body className={`font-sans ${inter.variable}`}>
+        <NavBar />
+        {children}
+      </body>
     </html>
   );
+}
+
+function NavBar() {
+  return (
+    <nav className="flex dark:bg-black justify-between p-4 bg-slate-900 text-white">
+      <Link href="/">
+        <h1 className="text-3xl font-bold">Monty Hall Simulator</h1>
+      </Link>
+      <Link href="/">
+        Simulator
+      </Link>
+      <Link href="/about">
+        About
+      </Link>
+    </nav>
+  )
 }

@@ -1,5 +1,5 @@
 "use client"
-import Link from "next/link";
+
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
@@ -23,58 +23,45 @@ export default function HomePage() {
   }
 
   return (
-    <main className="flex justify-center">
+    <main className="">
+      <Label>
+        <span className="">Number of simulations</span>
+        <Input
+          type="number"
+          value={numSimulations}
+          onChange={(e) => setNumSimulations(Number(e.target.value))}
+        />
+      </Label>
 
-      <nav className="flex justify-between p-4">
-        <h1 className="text-4xl font-bold">Monty Hall Simulator</h1>
-        <Link href="/">
-            Simulator
-        </Link>
-        <Link href="/about">
-            About
-        </Link>
-      </nav>
+      <Label>
+        <span className="">Door to open</span>
+        <Input
+          type="number"
+          value={initialChoice}
+          onChange={(e) => setInitialChoice(Number(e.target.value))}
+        />
+      </Label>
 
-      <section className="flex flex-col items-center justify-center w-full max-w-2xl mx-auto">
-        <Label>
-          <span className="">Number of simulations</span>
-          <Input
-            type="number"
-            value={numSimulations}
-            onChange={(e) => setNumSimulations(Number(e.target.value))}
-          />
-        </Label>
+      <Label>
+        <span className="">Switch doors</span>
+        <Input
+          type="checkbox"
+          checked={shouldSwitch}
+          onChange={(e) => setShouldSwitch(e.target.checked)}
+        />
+      </Label>
 
-        <Label>
-          <span className="">Door to open</span>
-          <Input
-            type="number"
-            value={initialChoice}
-            onChange={(e) => setInitialChoice(Number(e.target.value))}
-          />
-        </Label>
+      <Button onClick={() => runSimulation()}>Simulate</Button>
+      <Button variant={"default"} onClick={() => clearResults()}>Clear results</Button>
 
-        <Label>
-          <span className="">Switch doors</span>
-          <Input
-            type="checkbox"
-            checked={shouldSwitch}
-            onChange={(e) => setShouldSwitch(e.target.checked)}
-          />
-        </Label>
-
-        <Button onClick={() => runSimulation()}>Simulate</Button>
-        <Button variant={"default"} onClick={() => clearResults()}>Clear results</Button>
-
-        <ul>
-          {results.map((result, index) => (
-            <li key={index}>
-              <span className="">Wins: {result.wins} ({result.winRatePercentage}%)</span>
-            </li>
-          ))}
-        </ul>
-
-      </section>
+      <p>Simulation results:</p>
+      <ul>
+        {results.map((result, index) => (
+          <li key={index}>
+            <span className="">Percentage of games won: {result.winRatePercentage}%</span>
+          </li>
+        ))}
+      </ul>
     </main>
   );
 }
